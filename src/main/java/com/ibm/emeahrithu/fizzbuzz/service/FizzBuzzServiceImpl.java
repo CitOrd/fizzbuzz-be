@@ -10,13 +10,7 @@ import java.util.stream.IntStream;
 class FizzBuzzServiceImpl implements FizzBuzzService {
 
     @Override
-    public List<String> generateSequence(int limit) {
-        return IntStream.rangeClosed(1, limit)
-                .mapToObj(this::convertElement)
-                .collect(Collectors.toList());
-    }
-
-    private String convertElement(int element) {
+    public String generateElement(int element) {
         boolean divisibleBy3 = element % 3 == 0;
         boolean divisibleBy5 = element % 5 == 0;
 
@@ -33,6 +27,13 @@ class FizzBuzzServiceImpl implements FizzBuzzService {
         }
 
         return String.valueOf(element);
+    }
+
+    @Override
+    public List<String> generateSequence(int limit) {
+        return IntStream.rangeClosed(1, limit)
+                .mapToObj(this::generateElement)
+                .collect(Collectors.toList());
     }
 
 }
